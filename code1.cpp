@@ -90,9 +90,8 @@ void insertInternal(int x, DataNode* cursor, DataNode* newLeaf){
 		sort(virtualNode.begin(),virtualNode.end());
 		newIndex->leaf = false;
 		cursor->a.clear();
-		newIndex->a.clear();
 		cursor->size = t;
-		newLeaf->size = t + 1;
+		newIndex->size = t + 1;
 
 		for(int i = 2*t + 1; i >= t + 1; i--){
 			newIndex->a.push_back(virtualNode[i]);
