@@ -77,8 +77,8 @@ void insertInternal(int x, DataNode* cursor, DataNode* newLeaf){
 			}
 		}
 		if(j == cursor->size - 1){
-			cursor->rightchild = newLeaf;
 			virtualNode.push_back(pair<int,DataNode*>(x,cursor->rightchild));
+			cursor->rightchild = newLeaf;
 		}
 		else{
 			virtualNode.push_back(pair<int,DataNode*>(x,cursor->a[j].second));
@@ -95,14 +95,11 @@ void insertInternal(int x, DataNode* cursor, DataNode* newLeaf){
 
 		for(int i = 2*t + 1; i >= t + 1; i--){
 			newIndex->a.push_back(virtualNode[i]);
-			virtualNode.pop_back();
 		}
 		cursor->rightchild = virtualNode[t].second;
 		int y = virtualNode[t].first;
-		virtualNode.pop_back();
 		for(int i = t - 1; i >= 0; i--){
 			cursor->a.push_back(virtualNode[i]);
-			virtualNode.pop_back();
 		}
 		sort(cursor->a.begin(),cursor->a.end());
 		sort(newLeaf->a.begin(),newLeaf->a.end());
@@ -163,25 +160,21 @@ void insert (int n){
 			newLeaf->leaf = true;
  
             cursor->a.clear();
-			newLeaf->a.clear();
 			
 			cursor->size = d;
             newLeaf->size = d + 1;
 
 			for(int i = 2*d; i >= d; i--){
 				newLeaf->a.push_back(pair<int,DataNode*>(virtualNode[i],nullptr));
-				virtualNode.pop_back();
 			}
             for(int i = d - 1; i >= 0; i--){
                 cursor->a.push_back(pair<int,DataNode*>(virtualNode[i],nullptr));
-				virtualNode.pop_back();
 			}
 
 			sort(cursor->a.begin(),cursor->a.end());
 			sort(newLeaf->a.begin(),newLeaf->a.end());
 
             if (cursor == btree.root) {
- 
                 DataNode* newRoot = new DataNode;
 				btree.indexcount++;
                 newRoot->a.push_back(pair<int,DataNode*>(newLeaf->a[0].first, cursor));
